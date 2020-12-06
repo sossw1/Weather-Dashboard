@@ -38,7 +38,8 @@ function displayCurrentWeather(response) {
     var unixTime = response.dt;
     var date = new Date(unixTime * 1000);
     var today = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
-    
+    var weatherCode = response.weather[0].icon;
+    var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities
