@@ -42,6 +42,7 @@ function displayCurrentWeather(response) {
     var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
     var temp = response.main.temp;
     var humidity = response.main.humidity;
+    var windSpeed = response.wind.speed;
     
 }
 
