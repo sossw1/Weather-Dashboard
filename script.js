@@ -18,7 +18,7 @@ function requestCurrentWeather(){
             }
           }
     }).then(function(response){
-        displayCurrentWeather(response);
+        var currentWeatherResponse = response;
 
         latitude = response.coord.lat;
         longitude = response.coord.lon;
@@ -27,7 +27,9 @@ function requestCurrentWeather(){
             url: queryURL,
             method: "GET"
         }).then(function(response){
-            displayUVIndex(response);
+            var uvIndexResponse = response;
+            console.log("UV",uvIndexResponse);
+            displayCurrentWeather(currentWeatherResponse,uvIndexResponse);
         })
 
     });
@@ -45,23 +47,18 @@ function requestForecast(){
 }
 
 // city name, date, icon representing current conditions, temp, humidity, wind speed
-function displayCurrentWeather(response) {
-    console.log("current",response);
-    var unixTime = response.dt;
+function displayCurrentWeather(response1,response2) {
+    console.log("current",response1);
+    var unixTime = response1.dt;
     var date = new Date(unixTime * 1000);
     var today = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
-    var weatherCode = response.weather[0].icon;
+    var weatherCode = response1.weather[0].icon;
     var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
-    var temp = response.main.temp;
-    var humidity = response.main.humidity;
-    var windSpeed = response.wind.speed;
-    latitude = response.coord.lat;
-    longitude = response.coord.lon;
-}
-
-// UV index color-coded favorable/moderate/severe
-function displayUVIndex(response) {
-    console.log("UV",response.value);
+    var temp = response1.main.temp;
+    var humidity = response1.main.humidity;
+    var windSpeed = response1.wind.speed;
+    var uvIndex = response2.value;
+    
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities
