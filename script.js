@@ -16,19 +16,34 @@ function requestCurrentWeather(){
             }
           }
     }).then(function(response){
-        console.log(response);
+        displayCurrentWeather(response);
     });
 }
 
-function requestFiveDay(){
+function requestForecast(){
     var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "&appid=" + apiKey;
 
     $.ajax({
         url: queryURL,
         method: "GET",
     }).then(function(response){
-        console.log(response);
+        displayForecast(response);
     })
+}
+
+// city name, date, icon representing current conditions, temp, humidity, wind speed, UV index
+// UV index color-coded favorable/moderate/severe
+function displayCurrentWeather(response) {
+    console.log(response);
+    var unixTime = response.dt;
+    var date = new Date(unixTime * 1000);
+    var today = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
+    
+}
+
+// 5 day forecast displaying dates, icons for conditions, temps and humidities
+function displayForecast(response) {
+    console.log(response);
 }
 
 // Event Listener for city form
@@ -36,6 +51,6 @@ $("form").on("submit",function(event){
     event.preventDefault();
     currentCity = $("#city")[0].value;
     requestCurrentWeather();
-    requestFiveDay();
+    requestForecast();
 });
 
