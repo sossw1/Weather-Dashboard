@@ -2,7 +2,7 @@ var currentCity = "";
 var apiKey = "238865a2d2158723334cf88f7fd88c92";
 
 function requestCurrentWeather(){
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
         url: queryURL,
@@ -21,7 +21,7 @@ function requestCurrentWeather(){
 }
 
 function requestForecast(){
-    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "&appid=" + apiKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + currentCity + "&appid=" + apiKey + "&units=imperial";
 
     $.ajax({
         url: queryURL,
@@ -40,6 +40,8 @@ function displayCurrentWeather(response) {
     var today = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
     var weatherCode = response.weather[0].icon;
     var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
+    var temp = response.main.temp;
+    
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities
