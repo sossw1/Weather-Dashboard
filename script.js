@@ -46,19 +46,28 @@ function requestForecast(){
     })
 }
 
-// city name, date, icon representing current conditions, temp, humidity, wind speed
 function displayCurrentWeather(response1,response2) {
     console.log("current",response1);
+    // Get values for city name, date, current weather icon, temp, humidity, wind speed and UV index-
     var unixTime = response1.dt;
     var date = new Date(unixTime * 1000);
     var today = `${date.getMonth()+1}/${date.getDate()}/${date.getFullYear()}`;
     var weatherCode = response1.weather[0].icon;
     var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
-    var temp = response1.main.temp;
+    var temp = response1.main.temp.toFixed(1);
     var humidity = response1.main.humidity;
     var windSpeed = response1.wind.speed;
     var uvIndex = response2.value;
-    
+
+    // Display values
+    var displayDiv = $("#current-weather");
+    displayDiv.append(`<h2 style='float:left'>${currentCity} (${today})`);
+    displayDiv.append(`<img style='float:left' width='70px' src=${weatherIconSource}>`);
+    displayDiv.append(`<p style='clear:left'>Temperature: ${temp}\xB0 F`);
+    displayDiv.append(`<p>Humidity: ${humidity}%`);
+    displayDiv.append(`<p>Wind Speed: ${windSpeed} MPH`);
+    displayDiv.append(`<p>UV Index: ${uvIndex}`);
+
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities
