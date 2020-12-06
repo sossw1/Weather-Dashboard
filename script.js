@@ -66,8 +66,19 @@ function displayCurrentWeather(response1,response2) {
     displayDiv.append(`<p style='clear:left'>Temperature: ${temp}\xB0 F`);
     displayDiv.append(`<p>Humidity: ${humidity}%`);
     displayDiv.append(`<p>Wind Speed: ${windSpeed} MPH`);
-    displayDiv.append(`<p>UV Index: ${uvIndex}`);
 
+    displayDiv.append(`<div id='uv-div'>UV Index: `);
+    $("#uv-div").append(`<span class='clearfix'>${uvIndex}`);
+    var uvSpan = $("span");
+    if(uvIndex<3) {
+        uvSpan.addClass("greenUV");
+    } else if (uvIndex>=6) {
+        uvSpan.addClass("redUV");
+    } else {
+        uvSpan.addClass("yellowUV");
+    }
+
+        
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities

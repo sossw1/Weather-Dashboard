@@ -21,3 +21,27 @@ nav {
     float: right;
     width: 80%;
 }
+
+.greenUV {
+    background: green;
+    color: white;
+}
+
+.yellowUV {
+    background: yellow;
+}
+
+.redUV {
+    background: red;
+    color: white;
+}
+
+.clearfix {
+    overflow: auto;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
