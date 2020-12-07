@@ -84,13 +84,19 @@ function displayForecast(response) {
     for(let i=0; i<5; i++) {
         // Get values for date, weather condition icon, temp and humidity
         var index = (8*i)+3;
-        var card = `<div id='day${i}'>`;
+        var card = `<div class='card' id='day${i}'>`;
         var responseDate = response.list[index].dt_txt;
         var cardDate = responseDate.slice(5,7) + "/" + responseDate.slice(8,10) + "/" + responseDate.slice(0,4);
         var cardIconSource = `http://openweathermap.org/img/wn/${response.list[index].weather[0].icon}@2x.png`;
         var temp = response.list[index].main.temp.toFixed(1);
         var humidity = response.list[index].main.humidity;
-        
+        // Display forecast
+        forecastDiv.append(card);
+        var cardDiv = $(`#day${i}`);
+        cardDiv.append(`<p>${cardDate}`);
+        cardDiv.append(`<img src=${cardIconSource}>`);
+        cardDiv.append(`<p>Temperature: ${temp}\xB0 F`);
+        cardDiv.append(`<p>Humidity: ${humidity}`);
     }
 }
 

@@ -43,6 +43,10 @@ nav {
     color: white;
 }
 
+.card {
+    float: left;
+}
+
 .clearfix {
     overflow: auto;
 }
