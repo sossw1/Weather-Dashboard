@@ -28,7 +28,6 @@ function requestCurrentWeather(){
             method: "GET"
         }).then(function(response){
             var uvIndexResponse = response;
-            console.log("UV",uvIndexResponse);
             displayCurrentWeather(currentWeatherResponse,uvIndexResponse);
         })
 
@@ -47,7 +46,6 @@ function requestForecast(){
 }
 
 function displayCurrentWeather(response1,response2) {
-    console.log("current",response1);
     // Get values for city name, date, current weather icon, temp, humidity, wind speed and UV index-
     var unixTime = response1.dt;
     var date = new Date(unixTime * 1000);
@@ -78,13 +76,22 @@ function displayCurrentWeather(response1,response2) {
     } else {
         uvSpan.addClass("yellowUV");
     }
-
-    
 }
 
-// 5 day forecast displaying dates, icons for conditions, temps and humidities
 function displayForecast(response) {
     console.log("forecast",response);
+    forecastDiv = $("#forecast");
+    for(let i=0; i<5; i++) {
+        // Get values for date, weather condition icon, temp and humidity
+        var index = (8*i)+3;
+        var card = `<div id='day${i}'>`;
+        var responseDate = response.list[index].dt_txt;
+        var cardDate = responseDate.slice(5,7) + "/" + responseDate.slice(8,10) + "/" + responseDate.slice(0,4);
+        var cardIconSource = `http://openweathermap.org/img/wn/${response.list[index].weather[0].icon}@2x.png`;
+        var temp = response.list[index].main.temp.toFixed(1);
+        var humidity = response.list[index].main.humidity;
+        
+    }
 }
 
 // Event Listener for city form
