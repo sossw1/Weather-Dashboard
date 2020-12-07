@@ -60,7 +60,8 @@ function displayCurrentWeather(response1,response2) {
     var uvIndex = response2.value;
 
     // Display values
-    var displayDiv = $("#current-weather");
+    var displayDiv = $(".current-weather");
+    displayDiv.attr("id","current-weather");
     displayDiv.append(`<h2 style='float:left'>${currentCity} (${today})`);
     displayDiv.append(`<img style='float:left' width='70px' src=${weatherIconSource}>`);
     displayDiv.append(`<p style='clear:left'>Temperature: ${temp}\xB0 F`);
@@ -78,7 +79,7 @@ function displayCurrentWeather(response1,response2) {
         uvSpan.addClass("yellowUV");
     }
 
-        
+    
 }
 
 // 5 day forecast displaying dates, icons for conditions, temps and humidities
