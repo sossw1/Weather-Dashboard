@@ -45,6 +45,14 @@ nav {
 
 .card {
     float: left;
+    margin-right: 10px;
+    margin-top: 10px;
+    color: white;
+    background: seagreen;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .clearfix {
