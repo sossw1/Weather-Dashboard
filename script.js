@@ -54,8 +54,8 @@ function displayCurrentWeather(response1,response2) {
     var weatherIconSource = `http://openweathermap.org/img/wn/${weatherCode}@2x.png`;
     var temp = response1.main.temp.toFixed(1);
     var humidity = response1.main.humidity;
-    var windSpeed = response1.wind.speed;
-    var uvIndex = response2.value;
+    var windSpeed = response1.wind.speed.toFixed(1);
+    var uvIndex = response2.value.toFixed(1);
 
     // Display values
     var displayDiv = $(".current-weather");
@@ -96,7 +96,7 @@ function displayForecast(response) {
         cardDiv.append(`<p>${cardDate}`);
         cardDiv.append(`<img src=${cardIconSource}>`);
         cardDiv.append(`<p>Temperature: ${temp}\xB0 F`);
-        cardDiv.append(`<p>Humidity: ${humidity}`);
+        cardDiv.append(`<p>Humidity: ${humidity}%`);
     }
 }
 
