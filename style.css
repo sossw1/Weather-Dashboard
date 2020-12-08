@@ -26,7 +26,7 @@ h2 {
 
 .sidebar {
     float: left;
-    width: 19%;
+    width: 17%;
     margin-top: 10px;
     border-width: 1px;
     border-style: solid;
@@ -57,6 +57,7 @@ h2 {
 
 .card {
     float: left;
+    text-align: center;
     margin-right: 10px;
     margin-top: 10px;
     color: white;
@@ -75,6 +76,10 @@ h2 {
     content: "";
     clear: both;
     display: table;
+}
+
+#city {
+    width: 80%;
 }
 
 #current-weather {
