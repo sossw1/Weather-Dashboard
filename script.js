@@ -2,6 +2,51 @@ var currentCity = "";
 var apiKey = "238865a2d2158723334cf88f7fd88c92";
 var latitude;
 var longitude;
+var cityHistory;
+
+cityHistory = loadHistory();
+
+// Returns an array containing history from local storage
+function loadHistory() {
+    var stringHistory = localStorage.getItem("history");
+    if(stringHistory !== null) {
+        var arrayHistory = JSON.parse(stringHistory);
+        // Add buttons
+        for(let i=0; i<arrayHistory.length; i++) {
+            newButton(arrayHistory[i]);
+        }
+        return arrayHistory;
+    } else {
+        return [];
+    }
+}
+
+function newButton(str) {
+    
+    // Test for duplicates
+    var noDuplicates = true;
+    for(let i=0; i<cityHistory.length; i++) {
+        if(str === cityHistory[i]) {
+            noDuplicates = false;
+        }
+    }
+    if(noDuplicates === true) {
+        // Add entry to history
+        cityHistory.push(str);
+        localStorage.setItem("history",JSON.stringify(cityHistory));
+        // Add button
+        var cityList = $(".city-list");
+        var cityButton = $(`<span class='city-button' id='${str}'>${str}</button>`);
+        cityButton.on("click",function(event){
+            // When clicked, change current city and display results for current city
+            currentCity = event.target.id;
+            requestCurrentWeather();
+            requestForecast();
+        });
+        cityList.append(cityButton);
+        cityList.append("<hr>");
+    }
+}
 
 function requestCurrentWeather(){
     var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + currentCity + "&appid=" + apiKey + "&units=imperial";
@@ -18,18 +63,8 @@ function requestCurrentWeather(){
             }
           }
     }).then(function(response){
-        // Create new city button
-        var cityList = $(".city-list");
-        var cityButton = $(`<span class='city-button' id='${currentCity}'>${currentCity}</button>`);
-        cityButton.on("click",function(event){
-            // When clicked, change current city and display results for current city
-            currentCity = event.target.id;
-            requestCurrentWeather();
-            requestForecast();
-        });
-        cityList.append(cityButton);
-        cityList.append("<hr>");
 
+        newButton(currentCity);
         // Call API for UV index using latitude/longitude from previous response
         var currentWeatherResponse = response;
         latitude = response.coord.lat;
@@ -95,8 +130,6 @@ function displayCurrentWeather(response1,response2) {
 function displayForecast(response) {
     // Empty forecast display
     $("#forecast").empty();
-
-    console.log("forecast",response);
     forecastDiv = $("#forecast");
     for(let i=0; i<5; i++) {
         // Get values for date, weather condition icon, temp and humidity
