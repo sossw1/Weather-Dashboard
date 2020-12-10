@@ -18,8 +18,20 @@ function requestCurrentWeather(){
             }
           }
     }).then(function(response){
-        var currentWeatherResponse = response;
+        // Create new city button
+        var cityList = $(".city-list");
+        var cityButton = $(`<span class='city-button' id='${currentCity}'>${currentCity}</button>`);
+        cityButton.on("click",function(event){
+            // When clicked, change current city and display results for current city
+            currentCity = event.target.id;
+            requestCurrentWeather();
+            requestForecast();
+        });
+        cityList.append(cityButton);
+        cityList.append("<hr>");
 
+        // Call API for UV index using latitude/longitude from previous response
+        var currentWeatherResponse = response;
         latitude = response.coord.lat;
         longitude = response.coord.lon;
         queryURL = "https://api.openweathermap.org/data/2.5/uvi?lat=" + latitude + "&lon=" + longitude + "&appid=" + apiKey;
@@ -46,6 +58,8 @@ function requestForecast(){
 }
 
 function displayCurrentWeather(response1,response2) {
+    // Empty current weather display
+    $(".current-weather").empty();
     // Get values for city name, date, current weather icon, temp, humidity, wind speed and UV index-
     var unixTime = response1.dt;
     var date = new Date(unixTime * 1000);
@@ -67,8 +81,8 @@ function displayCurrentWeather(response1,response2) {
     displayDiv.append(`<p>Wind Speed: ${windSpeed} MPH`);
 
     displayDiv.append(`<div id='uv-div'>UV Index: `);
-    $("#uv-div").append(`<span class='clearfix'>${uvIndex}`);
-    var uvSpan = $("span");
+    $("#uv-div").append(`<span id='uv' class='clearfix'>${uvIndex}`);
+    var uvSpan = $("#uv");
     if(uvIndex<3) {
         uvSpan.addClass("greenUV");
     } else if (uvIndex>=6) {
@@ -79,6 +93,9 @@ function displayCurrentWeather(response1,response2) {
 }
 
 function displayForecast(response) {
+    // Empty forecast display
+    $("#forecast").empty();
+
     console.log("forecast",response);
     forecastDiv = $("#forecast");
     for(let i=0; i<5; i++) {

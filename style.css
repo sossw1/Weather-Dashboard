@@ -24,6 +24,10 @@ h2 {
     font-size: 1.5em;
 }
 
+.city-button {
+    cursor: pointer;
+}
+
 .sidebar {
     float: left;
     width: 17%;
