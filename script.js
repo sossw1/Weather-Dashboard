@@ -4,7 +4,14 @@ var latitude;
 var longitude;
 var cityHistory;
 
-cityHistory = loadHistory();
+cityHistory = JSON.parse(localStorage.getItem("history")) || [];
+
+loadHistory();
+
+if(currentCity !== "") {
+    requestCurrentWeather();
+    requestForecast();
+}
 
 // Returns an array containing history from local storage
 function loadHistory() {
@@ -22,7 +29,7 @@ function loadHistory() {
 }
 
 function newButton(str) {
-    
+    currentCity = str;
     // Test for duplicates
     var noDuplicates = true;
     for(let i=0; i<cityHistory.length; i++) {
