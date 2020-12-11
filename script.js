@@ -2,9 +2,7 @@ var currentCity = "";
 var apiKey = "238865a2d2158723334cf88f7fd88c92";
 var latitude;
 var longitude;
-var cityHistory;
-
-cityHistory = JSON.parse(localStorage.getItem("history")) || [];
+var cityHistory = JSON.parse(localStorage.getItem("history")) || [];
 
 loadHistory();
 
